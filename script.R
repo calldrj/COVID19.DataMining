@@ -58,9 +58,9 @@ cv19_st$KY
 cv19_st$CT
 # Fill each of emtpy cells with 0
 col <- c(2:7)
-cv19_us[ , col][cv19_us[ , col] == ''] <- 0
+cv19_us[ , col][cv19_us[ , col]==''] <- 0
 col <- c(2:56)
-cv19_st[ , col][cv19_st[ , col] == ''] <- 0
+cv19_st[ , col][cv19_st[ , col]==''] <- 0
 
 # 10. Test sum of a column, but it fails due to improper data type
 sum(cv19_us$Confirmed)
@@ -77,7 +77,9 @@ sum(cv19_us$Deaths)
 sum(cv19_st$CA)
 # 13. Fix and format the Date column in proper form for manipulations
 d <- as.Date('01/21/2020', format='%m/%d/%Y')
-i <- c(0,3:5,9:12,15,25,30,35:105)
+# Last update date
+ld <- t_us[2] + 16
+i <- c(0,3:5,9:12,15,25,30,35:ld)
 Date <- c(d + i)
 View(Date)
 cv19_us$Date <- Date
