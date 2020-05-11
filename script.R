@@ -113,10 +113,11 @@ write.csv(state.csv, 'state.csv', row.names=FALSE)
 # 1. Import data tables from local storage
 df_us <- read.csv('us.csv')
 df_st <- read.csv('state.csv')
+
 str(df_us)
 str(df_st)
-df_us$Date <- as.Date(df_us$Date, format='%m/%d/%Y')
-df_st$Date <- as.Date(df_st$Date, format='%m/%d/%Y')
+df_us$Date <- as.Date(as.character(df_us$Date, format='%m/%d/%Y'))
+df_st$Date <- as.Date(as.character(df_st$Date, format='%m/%d/%Y'))
 str(df_us)
 str(df_st)
 View(df_us)
