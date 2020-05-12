@@ -316,19 +316,18 @@ library(readr)
 df_NYCA <- read_csv('state.csv', col_types=cols_only('Date'=col_date(format=''),
                                                       'NY'=col_integer(), 'CA'=col_integer()))
 # Remove date with single-digit cases in both NY and CA
-df <- df_NYCA[(df$NY > 9 & df$CA > 9), ]
+df <- subset(df_NYCA, NY > 9 & CA > 9)
 # Smooth the data in a Gaussian-window of one week interval for both NY and CA
 library(smoother)
 df_NYCA <- df_NYCA %>% mutate(NY_smth=round(smth(NY, window=7, method='gaussian', tails=TRUE))) %>% 
   mutate(CA_smth=round(smth(CA, window=7, method='gaussian', tails=TRUE))) 
 View(df_NYCA)
 title_NYCA <- 'Daily Confirmed Cases (Original & Smoothed) in New York and California'
-plot_NYCA <- df_NYCA %>%  ggplot(aes(x=Date, y=NY)) +
-                          geom_line(linetype='dotted', color='#429890') + 
-                          geom_line(aes(y=NY_smth), color='#429890') +
-                          geom_line(aes(y=CA), linetype='dotted', color='#E95D0F') +
-                          geom_line(aes(y=CA_smth), color='#E95D0F') +
-                          scale_color_manual(name=NULL, values=c('NY', 'CA')) +
+plot_NYCA <- df_NYCA %>%  ggplot() +
+                          geom_line(aes(x=Date, y=NY), linetype='dotted', color='#429890') + 
+                          geom_line(aes(x=Date, y=NY_smth), color='#429890') +
+                          geom_line(aes(x=Date, y=CA), linetype='dotted', color='#E95D0F') +
+                          geom_line(aes(x=Date, y=CA_smth), color='#E95D0F') +
                           annotate(geom='text',x=as.Date('2020-01-10'),
                                    y=11500, label='--- New York', fontface='bold', color='#429890') +
                           annotate(geom='text',x=as.Date('2020-01-10'),
