@@ -12,8 +12,11 @@
 1. Is available in the very early days of the pandemic       
 2. Fully covers all 55 U.S states and territories        
 3. Features 3 categories: Confirmed Positive, Deaths, and Recovered       
-4. Is convenient to access anywhere and anytime     
+4. Is convenient to access anywhere and anytime 
 
+### Visualization the COVID-19 data
+Please visit:
+https://sprout-sunset-spell.glitch.me/ 
 
 
 
