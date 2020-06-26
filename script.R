@@ -16,10 +16,10 @@ View(cv19_raw)
 
 # 5. Save the data of confirmed, deaths, and recovered cases from the raw table
 # Set border of the states' data table (top, bottom [the last updated row], left, right) 
-# Row #93 corresponds with date 05/09/2020 
+# Row #133 corresponds with date 2020-06-25
 # Set order of the US' data table (top, bottom [the last updated row], left, right)
-t_us <- c(2,93,57,63)
-t_st <- c(2,93,1,56)
+t_us <- c(2,142,57,63)
+t_st <- c(2,142,1,56)
 cv19_us <- cv19_raw[c(t_us[1]:t_us[2]), c(t_us[3]:t_us[4])]
 cv19_st <- cv19_raw[c(t_st[1]:t_st[2]), c(t_st[3]:t_st[4])]
 
@@ -29,9 +29,9 @@ View(cv19_us)
 str(cv19_st)
 View(cv19_st)
 
-# 7. Remove some irrelevant rows (17, 18, 50, 51), then reset the row index of the data table
-cv19_us <- cv19_us[-c(17:18, 50:51, 82:83), ]
-cv19_st <- cv19_st[-c(17:18, 50:51, 82:83), ]
+# 7. Remove some irrelevant rows (17, 18, 50, 51, 82, 83, 115, 116), then reset the row index of the data table
+cv19_us <- cv19_us[-c(17:18, 50:51, 82:83, 115:116), ]
+cv19_st <- cv19_st[-c(17:18, 50:51, 82:83, 115:116), ]
 rownames(cv19_us) <- NULL
 rownames(cv19_st) <- NULL
 
@@ -86,7 +86,7 @@ sum(cv19_st$CA)
 # 13. Fix and format the Date column in proper form for manipulations
 d <- as.Date('01/21/2020', format='%m/%d/%Y')
 # Last update date
-ld <- t_us[2] + 16
+ld <- t_us[2] + 14
 i <- c(0,3:5,9:12,15,25,30,35:ld)
 Date <- c(d + i)
 View(Date)
@@ -123,7 +123,7 @@ str(df_st)
 View(df_us)
 View(df_st)
 # Assign the last row of the data frame df_us / df_st
-lr <- 86
+lr <- 133
 
 # 2. Pie chart shows all cases ('Positive': p, 'Death': d, 'Recovered'; r)
 p <- sum(df_us$Cumulated_Recovered[lr])
@@ -204,7 +204,7 @@ weekly_count <- aggregate(df_us[ , c(2,4,6)], by=list(Week=week(df_us$Date)), su
 weekly_count <- melt(weekly_count, id.vars='Week', variable.name='Case', value.name='Count')
 View(weekly_count)
 star_week <- 9
-end_week <- 20
+end_week <- 27
 plot_weekly <- ggplot(weekly_count, aes(x=Week, y=Count, fill=Case)) +
   geom_bar(stat='identity', position='dodge') + 
   scale_x_continuous(breaks=seq(star_week, end_week + 1, 2), limits=c(star_week, end_week + 1), expand=c(0,0)) +
